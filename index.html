@@ -202,7 +202,7 @@
 <div class="card" id="startScreen">
   <h1>Тест на визначення рівня англійської мови</h1>
   <p class="desc">
-    Тест складається з <b>50 запитань</b> і охоплює рівні від <b>A1</b> до <b>B2</b>.
+    Тест складається з <b>30 запитань</b> і охоплює рівні від <b>A1</b> до <b>B2</b>.
     Запитання йдуть послідовно — від найпростіших до найскладніших. По завершенню ви отримаєте
     ваш орієнтовний рівень англійської та детальний відсотковий розподіл по кожному рівню.
   </p>
@@ -327,7 +327,7 @@
   ];
 
   // How many questions to draw from each level's pool for one test run.
-  const LEVEL_COUNTS = {A1:13, A2:13, B1:12, B2:12};
+  const LEVEL_COUNTS = {A1:8, A2:8, B1:7, B2:7};
   const TOTAL = Object.values(LEVEL_COUNTS).reduce((a,b) => a+b, 0);
 
   // ---------- Helpers: shuffle & per-run question set builder ----------
