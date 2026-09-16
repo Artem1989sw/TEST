@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Тест на рівень англійської мови</title>
+<style>
+  :root{
+    --bg:#f4f6fb;
+    --card:#ffffff;
+    --primary:#3a5ded;
+    --primary-dark:#2a44b8;
+    --text:#1f2430;
+    --muted:#6b7280;
+    --border:#e3e7f0;
+    --danger:#e5484d;
+    --good:#1fa971;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI', Roboto, Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+  }
+  .card{
+    background:var(--card);
+    border-radius:16px;
+    box-shadow:0 10px 40px rgba(30,40,90,0.08);
+    width:100%;
+    max-width:640px;
+    padding:36px 32px;
+  }
+  h1{
+    font-size:24px;
+    margin:0 0 8px;
+  }
+  p.desc{
+    color:var(--muted);
+    line-height:1.5;
+    margin:0 0 20px;
+  }
+  button.primary{
+    background:var(--primary);
+    color:#fff;
+    border:none;
+    padding:14px 28px;
+    border-radius:10px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:background .15s ease;
+  }
+  button.primary:hover{ background:var(--primary-dark); }
+  button.primary:disabled{
+    background:#c7cee8;
+    cursor:not-allowed;
+  }
+  button.secondary{
+    background:transparent;
+    color:var(--primary);
+    border:1px solid var(--primary);
+    padding:12px 24px;
+    border-radius:10px;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    margin-top:12px;
+  }
+  .progress-wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:6px;
+    font-size:13px;
+    color:var(--muted);
+  }
+  .progress-bar{
+    height:8px;
+    width:100%;
+    background:var(--border);
+    border-radius:99px;
+    overflow:hidden;
+    margin-bottom:28px;
+  }
+  .progress-fill{
+    height:100%;
+    background:var(--primary);
+    border-radius:99px;
+    transition:width .25s ease;
+  }
+  .level-badge{
+    display:inline-block;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.5px;
+    color:var(--primary);
+    background:#eaf0ff;
+    padding:4px 10px;
+    border-radius:99px;
+    margin-bottom:14px;
+  }
+  .question-text{
+    font-size:19px;
+    font-weight:600;
+    margin-bottom:20px;
+    line-height:1.4;
+  }
+  .options{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-bottom:26px;
+  }
+  .option{
+    border:1.5px solid var(--border);
+    border-radius:10px;
+    padding:13px 16px;
+    cursor:pointer;
+    font-size:15px;
+    transition:border-color .12s ease, background .12s ease;
+    user-select:none;
+  }
+  .option:hover{ border-color:#b9c4f0; background:#f7f9ff; }
+  .option.selected{
+    border-color:var(--primary);
+    background:#eaf0ff;
+    font-weight:600;
+  }
+  .nav-row{
+    display:flex;
+    justify-content:flex-end;
+  }
+  .result-level{
+    font-size:56px;
+    font-weight:800;
+    color:var(--primary);
+    text-align:center;
+    margin:8px 0 4px;
+  }
+  .result-sub{
+    text-align:center;
+    color:var(--muted);
+    margin-bottom:28px;
+  }
+  .score-total{
+    text-align:center;
+    font-size:15px;
+    color:var(--muted);
+    margin-bottom:28px;
+  }
+  .breakdown{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-bottom:28px;
+  }
+  .breakdown-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .breakdown-label{
+    width:36px;
+    font-weight:700;
+    font-size:14px;
+  }
+  .breakdown-bar-bg{
+    flex:1;
+    height:12px;
+    background:var(--border);
+    border-radius:99px;
+    overflow:hidden;
+  }
+  .breakdown-bar-fill{
+    height:100%;
+    border-radius:99px;
+    background:var(--primary);
+  }
+  .breakdown-pct{
+    width:48px;
+    text-align:right;
+    font-size:13px;
+    color:var(--muted);
+  }
+  .hidden{ display:none !important; }
+  .footer-note{
+    text-align:center;
+    color:var(--muted);
+    font-size:12px;
+    margin-top:6px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card" id="startScreen">
+  <h1>Тест на визначення рівня англійської мови</h1>
+  <p class="desc">
+    Тест складається з <b>50 запитань</b> і охоплює рівні від <b>A1</b> до <b>B2</b>.
+    Запитання йдуть послідовно — від найпростіших до найскладніших. По завершенню ви отримаєте
+    ваш орієнтовний рівень англійської та детальний відсотковий розподіл по кожному рівню.
+  </p>
+  <button class="primary" id="startBtn">Почати тест</button>
+</div>
+
+<div class="card hidden" id="testScreen">
+  <div class="progress-wrap">
+    <span id="progressText">Питання 1 з 50</span>
+    <span id="levelIndicator">Рівень: A1</span>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  <div class="level-badge" id="questionLevelBadge">A1</div>
+  <div class="question-text" id="questionText"></div>
+  <div class="options" id="optionsContainer"></div>
+  <div class="nav-row">
+    <button class="primary" id="nextBtn" disabled>Далі</button>
+  </div>
+</div>
+
+<div class="card hidden" id="resultScreen">
+  <h1 style="text-align:center;">Результат тесту</h1>
+  <div class="result-level" id="resultLevel">B1</div>
+  <div class="result-sub" id="resultDescription">Середній рівень</div>
+  <div class="score-total" id="scoreTotal">Правильних відповідей: 0 з 50 (0%)</div>
+  <div class="breakdown" id="breakdownContainer"></div>
+  <div style="text-align:center;">
+    <button class="primary" id="restartBtn">Пройти тест ще раз</button>
+  </div>
+</div>
+
+<script>
+(function(){
+
+  // ---------- Question pool (level-tagged). A larger pool than needed per
+  // level, so every test run randomly draws a different subset and order —
+  // two people (or the same person twice) won't see the same 50 questions. ----------
+  const questionPool = [
+    // ---- A1 pool ----
+    {level:'A1', q:'I ___ a student.', options:['am','is','are','be'], correct:0},
+    {level:'A1', q:'She ___ from Ukraine.', options:['is','am','are','be'], correct:0},
+    {level:'A1', q:'This is ___ apple.', options:['a','an','the','—'], correct:1},
+    {level:'A1', q:'They ___ my friends.', options:['is','am','are','be'], correct:2},
+    {level:'A1', q:'What is your name? — My name ___ Anna.', options:['is','am','are','be'], correct:0},
+    {level:'A1', q:'One cat, two ___.', options:['cat','cats','catss','cates'], correct:1},
+    {level:'A1', q:'There ___ a book on the table.', options:['is','are','am','be'], correct:0},
+    {level:'A1', q:'Five plus five is ___.', options:['ten','nine','eleven','twelve'], correct:0},
+    {level:'A1', q:'I like ___ apples.', options:['a','an','the','—'], correct:3},
+    {level:'A1', q:'He ___ to school every day.', options:['go','goes','going','gone'], correct:1},
+    {level:'A1', q:'Can you ___ me, please?', options:['help','helps','helping','helped'], correct:0},
+    {level:'A1', q:"It is cold. Put on your ___.", options:['coat','car','cup','cloud'], correct:0},
+    {level:'A1', q:'What color is the sky? — It is ___.', options:['blue','blues','blueing','blued'], correct:0},
+    {level:'A1', q:'___ you like tea?', options:['Do','Does','Are','Is'], correct:0},
+    {level:'A1', q:'My father ___ a doctor.', options:['am','is','are','be'], correct:1},
+    {level:'A1', q:'How ___ are you?', options:['old','olds','older','oldest'], correct:0},
+    {level:'A1', q:'I have two ___.', options:['brother','brothers','brotheres','brothies'], correct:1},
+    {level:'A1', q:'___ is your book, not mine.', options:['This','These','Those','They'], correct:0},
+    {level:'A1', q:'We ___ from Kyiv.', options:['is','am','are','be'], correct:2},
+    {level:'A1', q:'She can ___ English well.', options:['speak','speaks','speaking','spoke'], correct:0},
+
+    // ---- A2 pool ----
+    {level:'A2', q:'Yesterday I ___ to the cinema.', options:['go','goes','went','gone'], correct:2},
+    {level:'A2', q:'She ___ TV when I called her.', options:['watch','watched','was watching','watches'], correct:2},
+    {level:'A2', q:'This book is ___ than that one.', options:['interesting','more interesting','most interesting','interestinger'], correct:1},
+    {level:'A2', q:"There isn't ___ milk in the fridge.", options:['many','much','a lot','a few'], correct:1},
+    {level:'A2', q:'He is good ___ football.', options:['at','in','on','for'], correct:0},
+    {level:'A2', q:'I have been living here ___ 2015.', options:['since','for','from','at'], correct:0},
+    {level:'A2', q:'We ___ dinner at 7 pm yesterday.', options:['have','had','has','having'], correct:1},
+    {level:'A2', q:'Look! It ___ raining.', options:['is','was','were','be'], correct:0},
+    {level:'A2', q:'My brother is ___ than me.', options:['tall','taller','tallest','more tall'], correct:1},
+    {level:'A2', q:"Could you turn ___ the light? It's dark.", options:['on','in','at','up'], correct:0},
+    {level:'A2', q:'She usually goes to bed ___ 10 pm.', options:['at','in','on','for'], correct:0},
+    {level:'A2', q:'I ___ never been to Paris.', options:['have','has','am','was'], correct:0},
+    {level:'A2', q:'They are going ___ holiday next week.', options:['on','at','in','for'], correct:0},
+    {level:'A2', q:'I ___ my keys. Have you seen them?', options:['lose','lost','losing','loses'], correct:1},
+    {level:'A2', q:'She is interested ___ music.', options:['at','in','on','for'], correct:1},
+    {level:'A2', q:"You ___ smoke here, it's not allowed.", options:["mustn't","don't have to","needn't","can"], correct:0},
+    {level:'A2', q:"This is the ___ film I've ever seen.", options:['bad','worse','worst','baddest'], correct:2},
+    {level:'A2', q:"I'm going to visit my grandma ___ Sunday.", options:['at','in','on','for'], correct:2},
+    {level:'A2', q:'He asked me ___ help him.', options:['help','to help','helping','helped'], correct:1},
+    {level:'A2', q:'They ___ married for ten years.', options:['are','have been','was','is'], correct:1},
+
+    // ---- B1 pool ----
+    {level:'B1', q:'If it rains, I ___ stay at home.', options:['will','would','am','was'], correct:0},
+    {level:'B1', q:'She has already ___ her homework.', options:['do','did','done','doing'], correct:2},
+    {level:'B1', q:'The letter ___ by John yesterday.', options:['wrote','was written','is written','writes'], correct:1},
+    {level:'B1', q:'I wish I ___ more time to relax.', options:['have','had','has','having'], correct:1},
+    {level:'B1', q:'He suggested ___ a movie.', options:['watch','to watch','watching','watched'], correct:2},
+    {level:'B1', q:'By the time we arrived, the film ___ already started.', options:['has','had','have','was'], correct:1},
+    {level:'B1', q:'I need to ___ up early tomorrow.', options:['get','go','take','make'], correct:0},
+    {level:'B1', q:"She's the woman ___ car was stolen.", options:['who','which','whose','whom'], correct:2},
+    {level:'B1', q:'Despite ___ hard, he failed the exam.', options:['study','studying','studied','to study'], correct:1},
+    {level:'B1', q:"I'm not used ___ early.", options:['to wake','to waking','wake','waking'], correct:1},
+    {level:'B1', q:'He denied ___ the money.', options:['steal','to steal','stealing','stole'], correct:2},
+    {level:'B1', q:'This is the best film I ___ ever seen.', options:['have','has','had','having'], correct:0},
+    {level:'B1', q:'If I were you, I ___ apologize.', options:['will','would','am','was'], correct:1},
+    {level:'B1', q:'The meeting ___ postponed until next week.', options:['was','were','is','be'], correct:0},
+    {level:'B1', q:'I\'m looking forward ___ you soon.', options:['to see','to seeing','see','seeing'], correct:1},
+    {level:'B1', q:"He's the man ___ helped us yesterday.", options:['who','whom','whose','which'], correct:0},
+    {level:'B1', q:'She must ___ tired after the long journey.', options:['be','being','been','is'], correct:0},
+    {level:'B1', q:"I haven't decided yet ___ to accept the offer.", options:['whether','if','that','what'], correct:0},
+
+    // ---- B2 pool ----
+    {level:'B2', q:'If I ___ known, I would have told you.', options:['have','had','has','would have'], correct:1},
+    {level:'B2', q:'She said she ___ back the next day.', options:['will come','would come','comes','came'], correct:1},
+    {level:'B2', q:'Hardly ___ arrived when the phone rang.', options:['I had','had I','I have','have I'], correct:1},
+    {level:'B2', q:'He acted as if he ___ the boss.', options:['is','was','were','be'], correct:2},
+    {level:'B2', q:'Not only ___ late, but he also forgot the documents.', options:['he was','was he','he is','is he'], correct:1},
+    {level:'B2', q:'The project, ___ was completed on time, impressed the client.', options:['that','which','who','whom'], correct:1},
+    {level:'B2', q:"I'd rather you ___ tell anyone about this.", options:["don't",'didn\'t','not',"won't"], correct:1},
+    {level:'B2', q:"It's high time we ___ a decision.", options:['make','made','making','have made'], correct:1},
+    {level:'B2', q:"She couldn't help ___ when she saw the clown.", options:['laugh','to laugh','laughing','laughed'], correct:2},
+    {level:'B2', q:'No sooner ___ the words than he regretted them.', options:['had he said','he had said','he said','did he say'], correct:0},
+    {level:'B2', q:"The company's profits ___ significantly over the last decade.", options:['has risen','have risen','rise','rose'], correct:1},
+    {level:'B2', q:"Choose the correct meaning of 'to procrastinate':", options:['to delay doing something','to celebrate','to argue','to organize'], correct:0},
+    {level:'B2', q:'Had I known about the traffic, I ___ earlier.', options:['would leave','would have left','left','leave'], correct:1},
+    {level:'B2', q:'He is said ___ the best chef in town.', options:['to be','being','be','is'], correct:0},
+    {level:'B2', q:'Under no circumstances ___ share your password.', options:['you should','should you','you would','would you'], correct:1},
+    {level:'B2', q:"It's about time you ___ responsibility for your actions.", options:['take','took','taking','have taken'], correct:1},
+    {level:'B2', q:'She has a tendency ___ things off until the last minute.', options:['put','to put','putting','puts'], correct:1},
+    {level:'B2', q:'The book, the ending of ___ surprised everyone, became a bestseller.', options:['which','whose','that','who'], correct:1},
+  ];
+
+  // How many questions to draw from each level's pool for one test run.
+  const LEVEL_COUNTS = {A1:13, A2:13, B1:12, B2:12};
+  const TOTAL = Object.values(LEVEL_COUNTS).reduce((a,b) => a+b, 0);
+
+  // ---------- Helpers: shuffle & per-run question set builder ----------
+  function shuffle(arr){
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  // Builds a fresh 50-question set every time it's called: random questions
+  // per level (order shuffled) and random answer-option order per question,
+  // so consecutive test-takers (or the same person retaking it) get a
+  // different set automatically.
+  function buildQuestionSet(){
+    const order = ['A1','A2','B1','B2'];
+    const result = [];
+    order.forEach(lvl => {
+      const pool = questionPool.filter(q => q.level === lvl);
+      const chosen = shuffle(pool).slice(0, LEVEL_COUNTS[lvl]);
+      chosen.forEach(q => {
+        const optIndices = shuffle(q.options.map((_, i) => i));
+        result.push({
+          level: q.level,
+          q: q.q,
+          options: optIndices.map(i => q.options[i]),
+          correct: optIndices.indexOf(q.correct),
+        });
+      });
+    });
+    return result;
+  }
+
+  // ---------- State ----------
+  let state = 'start'; // 'start' | 'testing' | 'result'
+  let questions = [];
+  let currentIndex = 0;
+  let answers = new Array(TOTAL).fill(null);
+  let selectedOption = null;
+
+  // ---------- Elements ----------
+  const startScreen = document.getElementById('startScreen');
+  const testScreen = document.getElementById('testScreen');
+  const resultScreen = document.getElementById('resultScreen');
+
+  const startBtn = document.getElementById('startBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const restartBtn = document.getElementById('restartBtn');
+
+  const progressText = document.getElementById('progressText');
+  const levelIndicator = document.getElementById('levelIndicator');
+  const progressFill = document.getElementById('progressFill');
+  const questionLevelBadge = document.getElementById('questionLevelBadge');
+  const questionText = document.getElementById('questionText');
+  const optionsContainer = document.getElementById('optionsContainer');
+
+  const resultLevel = document.getElementById('resultLevel');
+  const resultDescription = document.getElementById('resultDescription');
+  const scoreTotal = document.getElementById('scoreTotal');
+  const breakdownContainer = document.getElementById('breakdownContainer');
+
+  // ---------- Navigation between screens ----------
+  function showScreen(name){
+    startScreen.classList.toggle('hidden', name !== 'start');
+    testScreen.classList.toggle('hidden', name !== 'testing');
+    resultScreen.classList.toggle('hidden', name !== 'result');
+    state = name;
+  }
+
+  // ---------- Render current question ----------
+  function renderQuestion(){
+    const q = questions[currentIndex];
+    selectedOption = answers[currentIndex];
+
+    progressText.textContent = `Питання ${currentIndex + 1} з ${TOTAL}`;
+    levelIndicator.textContent = `Рівень: ${q.level}`;
+    questionLevelBadge.textContent = q.level;
+    progressFill.style.width = ((currentIndex) / TOTAL * 100) + '%';
+    questionText.textContent = q.q;
+
+    optionsContainer.innerHTML = '';
+    q.options.forEach((opt, i) => {
+      const div = document.createElement('div');
+      div.className = 'option' + (selectedOption === i ? ' selected' : '');
+      div.textContent = opt;
+      div.addEventListener('click', () => selectOption(i));
+      optionsContainer.appendChild(div);
+    });
+
+    nextBtn.disabled = selectedOption === null;
+    nextBtn.textContent = currentIndex === TOTAL - 1 ? 'Завершити тест' : 'Далі';
+  }
+
+  function selectOption(i){
+    selectedOption = i;
+    answers[currentIndex] = i;
+    Array.from(optionsContainer.children).forEach((el, idx) => {
+      el.classList.toggle('selected', idx === i);
+    });
+    nextBtn.disabled = false;
+  }
+
+  nextBtn.addEventListener('click', () => {
+    if (selectedOption === null) return;
+    if (currentIndex < TOTAL - 1) {
+      currentIndex++;
+      renderQuestion();
+    } else {
+      finishTest();
+    }
+  });
+
+  // ---------- Start / restart ----------
+  function startTest(){
+    questions = buildQuestionSet(); // fresh random set on every start
+    currentIndex = 0;
+    answers = new Array(TOTAL).fill(null);
+    selectedOption = null;
+    showScreen('testing');
+    renderQuestion();
+  }
+
+  startBtn.addEventListener('click', startTest);
+  restartBtn.addEventListener('click', () => showScreen('start'));
+
+  // ---------- Scoring & level logic ----------
+  function computeResults(){
+    const byLevel = {
+      A1: {correct:0, total:0},
+      A2: {correct:0, total:0},
+      B1: {correct:0, total:0},
+      B2: {correct:0, total:0},
+    };
+    let totalCorrect = 0;
+
+    questions.forEach((q, i) => {
+      byLevel[q.level].total++;
+      if (answers[i] === q.correct) {
+        byLevel[q.level].correct++;
+        totalCorrect++;
+      }
+    });
+
+    const pct = (obj) => obj.total ? Math.round(obj.correct / obj.total * 100) : 0;
+
+    const pctA1 = pct(byLevel.A1);
+    const pctA2 = pct(byLevel.A2);
+    const pctB1 = pct(byLevel.B1);
+    const pctB2 = pct(byLevel.B2);
+
+    // Level is determined by "highest level mastered": a level counts as
+    // mastered once accuracy on it reaches 60%. The final level is the
+    // highest mastered level for which all lower levels are also mastered.
+    const PASS = 60;
+    let level = 'A1';
+    if (pctA1 >= PASS) level = 'A1';
+    if (pctA1 >= PASS && pctA2 >= PASS) level = 'A2';
+    if (pctA1 >= PASS && pctA2 >= PASS && pctB1 >= PASS) level = 'B1';
+    if (pctA1 >= PASS && pctA2 >= PASS && pctB1 >= PASS && pctB2 >= PASS) level = 'B2';
+
+    return {
+      totalCorrect,
+      overallPct: Math.round(totalCorrect / TOTAL * 100),
+      level,
+      byLevel: {A1: pctA1, A2: pctA2, B1: pctB1, B2: pctB2},
+      raw: byLevel
+    };
+  }
+
+  const levelDescriptions = {
+    A1: 'Початковий рівень — базові слова та фрази',
+    A2: 'Елементарний рівень — прості побутові теми',
+    B1: 'Середній рівень — впевнене повсякденне спілкування',
+    B2: 'Вище середнього — вільне спілкування на широкі теми',
+  };
+
+  function finishTest(){
+    const results = computeResults();
+
+    resultLevel.textContent = results.level;
+    resultDescription.textContent = levelDescriptions[results.level];
+    scoreTotal.textContent = `Правильних відповідей: ${results.totalCorrect} з ${TOTAL} (${results.overallPct}%)`;
+
+    breakdownContainer.innerHTML = '';
+    ['A1','A2','B1','B2'].forEach(lvl => {
+      const pct = results.byLevel[lvl];
+      const raw = results.raw[lvl];
+      const row = document.createElement('div');
+      row.className = 'breakdown-row';
+      row.innerHTML = `
+        <div class="breakdown-label">${lvl}</div>
+        <div class="breakdown-bar-bg"><div class="breakdown-bar-fill" style="width:${pct}%"></div></div>
+        <div class="breakdown-pct">${pct}%</div>
+      `;
+      breakdownContainer.appendChild(row);
+    });
+    const note = document.createElement('div');
+    note.className = 'footer-note';
+    note.textContent = 'Точні кількості правильних відповідей: ' +
+      ['A1','A2','B1','B2'].map(l => `${l} — ${results.raw[l].correct}/${results.raw[l].total}`).join(' · ');
+    breakdownContainer.appendChild(note);
+
+    showScreen('result');
+    saveResult(results);
+  }
+
+  // ---------- Save result to the local log folder (via server.py) ----------
+  // Silently does nothing if the page was opened without the server running
+  // (e.g. plain GitHub Pages) — the test itself still works either way.
+  function saveResult(results){
+    const payload = {
+      timestamp: new Date().toISOString(),
+      level: results.level,
+      totalCorrect: results.totalCorrect,
+      total: TOTAL,
+      overallPct: results.overallPct,
+      byLevel: results.byLevel,
+      raw: results.raw,
+    };
+
+    fetch('/save-result', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    }).catch(() => {});
+  }
+
+  // ---------- Reset silently if focus leaves the test ----------
+  function handlePossibleCheat(){
+    if (state !== 'testing') return;
+    showScreen('start');
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) handlePossibleCheat();
+  });
+  window.addEventListener('blur', handlePossibleCheat);
+
+  // ---------- Init ----------
+  showScreen('start');
+})();
+</script>
+
+</body>
+</html>
