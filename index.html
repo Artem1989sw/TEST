@@ -651,12 +651,20 @@
       B2: {correct:0, total:0},
     };
     let totalCorrect = 0;
+    const mistakes = [];
 
     questions.forEach((q, i) => {
       byLevel[q.level].total++;
       if (answers[i] === q.correct) {
         byLevel[q.level].correct++;
         totalCorrect++;
+      } else {
+        mistakes.push({
+          level: q.level,
+          q: q.q,
+          chosen: q.options[answers[i]],
+          correct: q.options[q.correct],
+        });
       }
     });
 
@@ -682,7 +690,8 @@
       overallPct: Math.round(totalCorrect / TOTAL * 100),
       level,
       byLevel: {A1: pctA1, A2: pctA2, B1: pctB1, B2: pctB2},
-      raw: byLevel
+      raw: byLevel,
+      mistakes
     };
   }
 
@@ -739,6 +748,7 @@
       overallPct: results.overallPct,
       byLevel: results.byLevel,
       raw: results.raw,
+      mistakes: results.mistakes,
     };
 
     fetch('/save-result', {

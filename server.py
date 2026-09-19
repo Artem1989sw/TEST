@@ -43,7 +43,7 @@ LOG_DIR = os.path.join(DIRECTORY, "log")
 PUBLIC_URL_FILE = os.path.join(DIRECTORY, "public-url.txt")
 
 LEVELS = ("A1", "A2", "B1", "B2")
-MAX_BODY_BYTES = 4096
+MAX_BODY_BYTES = 65536
 PAGES = {"/", "/index.html"}
 
 write_lock = threading.Lock()
@@ -74,6 +74,30 @@ def clean_name(value):
     return re.sub(r"[\x00-\x1f\x7f\s]+", " ", value).strip()[:60]
 
 
+def clean_text(value, limit):
+    if not isinstance(value, str):
+        raise ValueError("bad text")
+    return re.sub(r"[\x00-\x1f\x7f]+", " ", value).strip()[:limit]
+
+
+def clean_mistakes(items):
+    if items is None:
+        return []
+    if not isinstance(items, list) or len(items) > 100:
+        raise ValueError("bad mistakes")
+    result = []
+    for m in items:
+        if not isinstance(m, dict) or m.get("level") not in LEVELS:
+            raise ValueError("bad mistake")
+        result.append({
+            "level": m["level"],
+            "q": clean_text(m.get("q"), 300),
+            "chosen": clean_text(m.get("chosen"), 200),
+            "correct": clean_text(m.get("correct"), 200),
+        })
+    return result
+
+
 def csv_safe(text):
     """Stop Excel from running a name like '=HYPERLINK(...)' as a formula."""
     return "'" + text if text[:1] in ("=", "+", "-", "@") else text
@@ -94,6 +118,7 @@ def clean_payload(data):
         raise ValueError("bad breakdown")
     return {
         "name": clean_name(data.get("name")),
+        "mistakes": clean_mistakes(data.get("mistakes")),
         "level": level,
         "totalCorrect": _int_in(data.get("totalCorrect"), 0, 1000),
         "total": _int_in(data.get("total"), 1, 1000),
