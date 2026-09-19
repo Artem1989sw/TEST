@@ -202,8 +202,8 @@
 <div class="card" id="startScreen">
   <h1>Тест на визначення рівня англійської мови</h1>
   <p class="desc">
-    Тест складається з <b>30 запитань</b> і охоплює рівні від <b>A1</b> до <b>B2</b>.
-    Запитання йдуть послідовно — від найпростіших до найскладніших. По завершенню ви отримаєте
+    Тест складається з <b><span id="startTotal">40</span> запитань</b> (по 10 на кожен рівень) і охоплює рівні від <b>A1</b> до <b>B2</b>.
+    Запитання щоразу підбираються з великого банку в іншому порядку. Вони йдуть послідовно — від найпростіших до найскладніших. По завершенню ви отримаєте
     ваш орієнтовний рівень англійської та детальний відсотковий розподіл по кожному рівню.
   </p>
   <button class="primary" id="startBtn">Почати тест</button>
@@ -262,6 +262,36 @@
     {level:'A1', q:'___ is your book, not mine.', options:['This','These','Those','They'], correct:0},
     {level:'A1', q:'We ___ from Kyiv.', options:['is','am','are','be'], correct:2},
     {level:'A1', q:'She can ___ English well.', options:['speak','speaks','speaking','spoke'], correct:0},
+    {level:'A1', q:'She ___ a cup of tea every morning.', options:['drink','drinks','drinking','drinked'], correct:1},
+    {level:'A1', q:'___ is your birthday? — In May.', options:['When','Where','Who','Why'], correct:0},
+    {level:'A1', q:"I ___ breakfast at 8 o'clock.", options:['have','has','having','am have'], correct:0},
+    {level:'A1', q:'The children ___ playing in the garden.', options:['is','am','are','be'], correct:2},
+    {level:'A1', q:'Where ___ you live?', options:['do','does','is','are'], correct:0},
+    {level:'A1', q:'My sister ___ like coffee.', options:["don't","doesn't","isn't","aren't"], correct:1},
+    {level:'A1', q:'There ___ two windows in this room.', options:['is','are','am','be'], correct:1},
+    {level:'A1', q:'This is my mother. ___ name is Olga.', options:['His','Her','Their','Its'], correct:1},
+    {level:'A1', q:'Monday, Tuesday, ___, Thursday.', options:['Wednesday','Friday','Sunday','Saturday'], correct:0},
+    {level:'A1', q:"We have lunch ___ 1 o'clock.", options:['at','in','on','to'], correct:0},
+    {level:'A1', q:'Look at ___ dog! It is very big.', options:['that','those','these','them'], correct:0},
+    {level:'A1', q:'My brother is ___ engineer.', options:['a','an','the','—'], correct:1},
+    {level:'A1', q:'___ they at home now?', options:['Do','Does','Are','Is'], correct:2},
+    {level:'A1', q:'I ___ TV in the evening.', options:['watch','watches','watching','am watch'], correct:0},
+    {level:'A1', q:'The opposite of "big" is ___.', options:['small','tall','long','old'], correct:0},
+    {level:'A1', q:'My birthday is ___ July.', options:['in','on','at','to'], correct:0},
+    {level:'A1', q:'He ___ two brothers and a sister.', options:['have','has','is','are'], correct:1},
+    {level:'A1', q:'How many days are there in a week? — ___.', options:['Seven','Five','Ten','Twelve'], correct:0},
+    {level:'A1', q:'Please ___ the door. It is cold.', options:['close','closes','closing','closed'], correct:0},
+    {level:'A1', q:'___ do you go to school? — By bus.', options:['How','What','Who','Whose'], correct:0},
+    {level:'A1', q:'I ___ not hungry.', options:['am','is','are','do'], correct:0},
+    {level:'A1', q:'Is she your sister? — Yes, ___ is.', options:['she','her','he','it'], correct:0},
+    {level:'A1', q:'We eat soup with a ___.', options:['spoon','pillow','shoe','window'], correct:0},
+    {level:'A1', q:"He doesn't ___ milk.", options:['like','likes','liking','liked'], correct:0},
+    {level:'A1', q:'Two ___ are in the room.', options:['man','men','mans','menes'], correct:1},
+    {level:'A1', q:"What time is it? — It's half ___ six.", options:['past','to','at','on'], correct:0},
+    {level:'A1', q:"I ___ up at 7 o'clock every day.", options:['get','gets','getting','am get'], correct:0},
+    {level:'A1', q:'___ your keys on the table?', options:['Is','Are','Do','Does'], correct:1},
+    {level:'A1', q:'My favorite ___ is summer. It is warm and sunny.', options:['season','sea','sun','seasons'], correct:0},
+    {level:'A1', q:"Thank you very much! — You're ___.", options:['welcome','wonderful','well','wanted'], correct:0},
 
     // ---- A2 pool ----
     {level:'A2', q:'Yesterday I ___ to the cinema.', options:['go','goes','went','gone'], correct:2},
@@ -284,6 +314,36 @@
     {level:'A2', q:"I'm going to visit my grandma ___ Sunday.", options:['at','in','on','for'], correct:2},
     {level:'A2', q:'He asked me ___ help him.', options:['help','to help','helping','helped'], correct:1},
     {level:'A2', q:'They ___ married for ten years.', options:['are','have been','was','is'], correct:1},
+    {level:'A2', q:"I didn't ___ the news yesterday.", options:['watch','watched','watches','watching'], correct:0},
+    {level:'A2', q:'How ___ water do you drink every day?', options:['many','much','few','a lot'], correct:1},
+    {level:'A2', q:'Kyiv is ___ city in Ukraine.', options:['big','bigger','the biggest','more big'], correct:2},
+    {level:'A2', q:'He ___ his leg while playing football last week.', options:['break','broke','broken','breaks'], correct:1},
+    {level:'A2', q:"What ___ you doing at 8 o'clock last night?", options:['was','were','did','are'], correct:1},
+    {level:'A2', q:"I'm ___ to buy a new laptop next month.", options:['going','go','went','goes'], correct:0},
+    {level:'A2', q:'If you ___ hungry, have a sandwich.', options:['are','will be','would be','were'], correct:0},
+    {level:'A2', q:"There aren't ___ chairs in the room.", options:['some','any','much','a'], correct:1},
+    {level:'A2', q:'She has ___ finished her homework.', options:['already','yet','ago','since'], correct:0},
+    {level:'A2', q:"I've lived here ___ five years.", options:['for','since','from','during'], correct:0},
+    {level:'A2', q:'Do you know ___ the station is?', options:['where','what','who','when'], correct:0},
+    {level:'A2', q:'My mother is ___ the kitchen, cooking dinner.', options:['in','on','at','to'], correct:0},
+    {level:'A2', q:'___ you help me with this bag, please?', options:['Could','Are','Must','Have'], correct:0},
+    {level:'A2', q:'He drives ___ than his father.', options:['careful','more careful','more carefully','carefully'], correct:2},
+    {level:'A2', q:"They ___ have a car, so they walk everywhere.", options:["don't","doesn't","aren't","didn't"], correct:0},
+    {level:'A2', q:"I'll call you when I ___ home.", options:['get','will get','got','getting'], correct:0},
+    {level:'A2', q:'You ___ wear a uniform at school. It is the rule.', options:['have to','can','might','would'], correct:0},
+    {level:'A2', q:'She is the ___ student in our class.', options:['clever','cleverer','cleverest','more clever'], correct:2},
+    {level:'A2', q:'We were tired, ___ we went to bed early.', options:['so','but','because','or'], correct:0},
+    {level:'A2', q:'He was late ___ the bus was late.', options:['because','so','but','if'], correct:0},
+    {level:'A2', q:'Have you ___ been to London?', options:['ever','yet','already','since'], correct:0},
+    {level:'A2', q:"The shop ___ at 9 o'clock every morning.", options:['open','opens','opening','is open'], correct:1},
+    {level:'A2', q:'I bought ___ new shoes yesterday.', options:['some','any','a','an'], correct:0},
+    {level:'A2', q:"I'm looking ___ my glasses. Where are they?", options:['for','at','to','after'], correct:0},
+    {level:'A2', q:'He speaks English very ___.', options:['good','well','best','better'], correct:1},
+    {level:'A2', q:'What ___ you do last weekend?', options:['do','did','does','were'], correct:1},
+    {level:'A2', q:'___ you ever eaten sushi?', options:['Did','Have','Do','Are'], correct:1},
+    {level:'A2', q:'The concert starts ___ 8 pm and finishes at 10 pm.', options:['at','in','on','by'], correct:0},
+    {level:'A2', q:'This bag is too heavy. I ___ carry it.', options:["can't","mustn't","don't","won't"], correct:0},
+    {level:'A2', q:'She wants ___ a doctor when she grows up.', options:['be','to be','being','been'], correct:1},
 
     // ---- B1 pool ----
     {level:'B1', q:'If it rains, I ___ stay at home.', options:['will','would','am','was'], correct:0},
@@ -304,6 +364,38 @@
     {level:'B1', q:"He's the man ___ helped us yesterday.", options:['who','whom','whose','which'], correct:0},
     {level:'B1', q:'She must ___ tired after the long journey.', options:['be','being','been','is'], correct:0},
     {level:'B1', q:"I haven't decided yet ___ to accept the offer.", options:['whether','if','that','what'], correct:0},
+    {level:'B1', q:'I ___ in this company since 2018.', options:['work','have worked','am working','worked'], correct:1},
+    {level:'B1', q:'If I ___ enough money, I would buy a house.', options:['have','had','will have','would have'], correct:1},
+    {level:'B1', q:'English ___ in many countries around the world.', options:['speaks','is spoken','is speaking','speak'], correct:1},
+    {level:'B1', q:'The bridge ___ built in 1990.', options:['is','was','were','has'], correct:1},
+    {level:'B1', q:"I ___ get up early tomorrow, because it's a holiday.", options:["don't have to","mustn't","can't","shouldn't"], correct:0},
+    {level:'B1', q:"She's so tired. She ___ have worked too hard.", options:['must','can','should','would'], correct:0},
+    {level:'B1', q:'We had ___ a good time that we did not want to leave.', options:['such','so','very','too'], correct:0},
+    {level:'B1', q:"I'd like to ___ a table for two at 8 pm.", options:['book','borrow','lend','hire'], correct:0},
+    {level:'B1', q:'He is ___ to win the competition. Everybody says so.', options:['likely','probably','possible','maybe'], correct:0},
+    {level:'B1', q:'The teacher made us ___ the text again.', options:['read','to read','reading','reads'], correct:0},
+    {level:'B1', q:"She's afraid ___ flying.", options:['of','from','at','with'], correct:0},
+    {level:'B1', q:"I don't mind ___ for you.", options:['wait','to wait','waiting','waited'], correct:2},
+    {level:'B1', q:'Unless you ___ now, you will miss the train.', options:['hurry','will hurry','hurried','hurrying'], correct:0},
+    {level:'B1', q:'He apologised ___ being late.', options:['for','of','about','to'], correct:0},
+    {level:'B1', q:'This is the house ___ I was born.', options:['where','which','who','whose'], correct:0},
+    {level:'B1', q:"She's not at home. She ___ to the shop.", options:['has gone','has been','was','goes'], correct:0},
+    {level:'B1', q:'She has been learning English ___ three years.', options:['for','since','during','ago'], correct:0},
+    {level:'B1', q:'I ___ smoke, but I gave it up two years ago.', options:['used to','am used to','was used to','would to'], correct:0},
+    {level:'B1', q:'He is not ___ to lift that heavy box.', options:['enough strong','strong enough','enough strongly','so strong'], correct:1},
+    {level:'B1', q:"There's ___ milk left. We need to buy some.", options:['few','little','hardly','a few'], correct:1},
+    {level:'B1', q:'___ he was ill, he went to work.', options:['Although','Because','So','Since'], correct:0},
+    {level:'B1', q:'My car ___ at the moment, so I am taking the bus.', options:['is repairing','is being repaired','repairs','was repaired'], correct:1},
+    {level:'B1', q:'He ___ for three hours when the phone rang.', options:['has been sleeping','had been sleeping','was sleep','sleeps'], correct:1},
+    {level:'B1', q:'I wonder ___ he will come to the party.', options:['if','that','what','which'], correct:0},
+    {level:'B1', q:"She'd like to know ___.", options:['what time it is','what time is it','what is time','time what is'], correct:0},
+    {level:'B1', q:'Both of my sisters ___ in London.', options:['live','lives','is living','living'], correct:0},
+    {level:'B1', q:'She is the ___ person I have ever met.', options:['most generous','generousest','more generous','much generous'], correct:0},
+    {level:'B1', q:'She cannot come to the party because she ___ to work.', options:['has','have','must','should'], correct:0},
+    {level:'B1', q:'The film was so ___ that I fell asleep.', options:['bored','boring','bore','boringly'], correct:1},
+    {level:'B1', q:'I was ___ when I heard the news. I could not believe it.', options:['shocked','shocking','shock','shocks'], correct:0},
+    {level:'B1', q:"He worked hard; ___, he didn't get the promotion.", options:['however','because','so','moreover'], correct:0},
+    {level:'B1', q:"I'll lend you my book as long as you ___ it back.", options:['bring','will bring','brought','bringing'], correct:0},
 
     // ---- B2 pool ----
     {level:'B2', q:'If I ___ known, I would have told you.', options:['have','had','has','would have'], correct:1},
@@ -324,11 +416,59 @@
     {level:'B2', q:"It's about time you ___ responsibility for your actions.", options:['take','took','taking','have taken'], correct:1},
     {level:'B2', q:'She has a tendency ___ things off until the last minute.', options:['put','to put','putting','puts'], correct:1},
     {level:'B2', q:'The book, the ending of ___ surprised everyone, became a bestseller.', options:['which','whose','that','who'], correct:1},
+    {level:'B2', q:'If it ___ for your help, I would have failed.', options:["weren't","hadn't been","wasn't","isn't"], correct:1},
+    {level:'B2', q:'She insisted ___ paying for the meal.', options:['on','to','at','for'], correct:0},
+    {level:'B2', q:'By this time next year, I ___ my degree.', options:['will finish','will have finished','finish','am finishing'], correct:1},
+    {level:'B2', q:'Rarely ___ such a beautiful sunset.', options:['I have seen','have I seen','I saw','did I saw'], correct:1},
+    {level:'B2', q:'He suggested that she ___ a doctor.', options:['sees','see','saw','seen'], correct:1},
+    {level:'B2', q:'The more you practise, ___ you become.', options:['the better','better','the best','best'], correct:0},
+    {level:'B2', q:'Only after the meeting ___ the truth.', options:['I learned','did I learn','I did learn','learned I'], correct:1},
+    {level:'B2', q:"Choose the correct meaning of 'reluctant':", options:['unwilling','eager','careless','grateful'], correct:0},
+    {level:'B2', q:"Choose the word closest in meaning to 'ambiguous':", options:['unclear','obvious','brave','ancient'], correct:0},
+    {level:'B2', q:'Should you need any help, ___ me.', options:['call','calling','to call','called'], correct:0},
+    {level:'B2', q:'He is a very ___ person; he never changes his mind.', options:['stubborn','generous','curious','flexible'], correct:0},
+    {level:'B2', q:'The results were far ___ what we had expected.', options:['from','than','of','to'], correct:0},
+    {level:'B2', q:"I'm afraid I can't ___ with your opinion.", options:['agree','accept','allow','support'], correct:0},
+    {level:'B2', q:'She managed ___ the exam despite being ill.', options:['passing','to pass','pass','passed'], correct:1},
+    {level:'B2', q:'He reminded me ___ the keys.', options:['to take','taking','take','of to take'], correct:0},
+    {level:'B2', q:'We ran ___ milk, so I went to the shop.', options:['out of','off','away from','up to'], correct:0},
+    {level:'B2', q:'We cannot put ___ with this noise any longer.', options:['up','on','off','out'], correct:0},
+    {level:'B2', q:'The plan fell ___ because of a lack of money.', options:['through','down','off','away'], correct:0},
+    {level:'B2', q:'She must ___ the news by now.', options:['have heard','hear','be hearing','heard'], correct:0},
+    {level:'B2', q:'He was accused ___ stealing money.', options:['of','for','with','about'], correct:0},
+    {level:'B2', q:'I would rather ___ at home than go out tonight.', options:['stay','to stay','staying','stayed'], correct:0},
+    {level:'B2', q:"It's no use ___ about it now.", options:['worry','to worry','worrying','worried'], correct:2},
+    {level:'B2', q:'Although he was tired, he kept ___.', options:['to work','working','work','worked'], correct:1},
+    {level:'B2', q:'She has two sons, ___ are doctors.', options:['both of whom','both of them who','who both','whose both'], correct:0},
+    {level:'B2', q:'The lecture was so boring ___ half the audience left.', options:['that','than','as','which'], correct:0},
+    {level:'B2', q:'If only I ___ more careful, the accident would not have happened.', options:['was','had been','have been','am'], correct:1},
+    {level:'B2', q:'I wish I ___ to the party last night. I heard it was great fun.', options:['went','had gone','have gone','would go'], correct:1},
+    {level:'B2', q:'Neither the teacher nor the students ___ the answer.', options:['knows','know','is knowing','has known'], correct:1},
+    {level:'B2', q:'The proposal was turned ___ by the board.', options:['down','off','away','out'], correct:0},
+    {level:'B2', q:'He is ___ to be released from hospital next week.', options:['expected','waiting','hoping','looking'], correct:0},
+    {level:'B2', q:"Choose the correct meaning of 'reliable':", options:['dependable','careless','expensive','sudden'], correct:0},
+    {level:'B2', q:'Despite ___ warned, he went into the forest.', options:['being','be','was','to be'], correct:0},
   ];
 
   // How many questions to draw from each level's pool for one test run.
-  const LEVEL_COUNTS = {A1:8, A2:8, B1:7, B2:7};
+  const LEVELS = ['A1','A2','B1','B2'];
+  const LEVEL_COUNTS = {A1:10, A2:10, B1:10, B2:10};
   const TOTAL = Object.values(LEVEL_COUNTS).reduce((a,b) => a+b, 0);
+
+  // Remembers (per browser) which questions were already shown, so repeat
+  // attempts get unseen questions first. Falls back to plain random if
+  // localStorage is unavailable.
+  const SEEN_KEY = 'englishTest.seenQuestions.v1';
+  const qId = q => q.level + '|' + q.q;
+
+  function loadSeen(){
+    try { return JSON.parse(localStorage.getItem(SEEN_KEY)) || {}; }
+    catch(e){ return {}; }
+  }
+  function saveSeen(seen){
+    try { localStorage.setItem(SEEN_KEY, JSON.stringify(seen)); }
+    catch(e){}
+  }
 
   // ---------- Helpers: shuffle & per-run question set builder ----------
   function shuffle(arr){
@@ -340,16 +480,33 @@
     return a;
   }
 
-  // Builds a fresh 50-question set every time it's called: random questions
-  // per level (order shuffled) and random answer-option order per question,
-  // so consecutive test-takers (or the same person retaking it) get a
-  // different set automatically.
+  // Builds a fresh question set every time it's called. Levels stay in order
+  // A1 -> B2, but within each level the questions are shuffled and drawn
+  // from questions not yet seen in this browser; once fewer unseen ones
+  // remain than needed, the remaining unseen are used first and the cycle
+  // restarts (no question repeats within a single test). Answer options
+  // are shuffled too.
   function buildQuestionSet(){
-    const order = ['A1','A2','B1','B2'];
+    const seen = loadSeen();
     const result = [];
-    order.forEach(lvl => {
+    LEVELS.forEach(lvl => {
+      const need = LEVEL_COUNTS[lvl];
       const pool = questionPool.filter(q => q.level === lvl);
-      const chosen = shuffle(pool).slice(0, LEVEL_COUNTS[lvl]);
+      const seenSet = new Set(seen[lvl] || []);
+      const fresh = shuffle(pool.filter(q => !seenSet.has(qId(q))));
+
+      let chosen, nextSeen;
+      if (fresh.length >= need) {
+        chosen = fresh.slice(0, need);
+        nextSeen = [...seenSet, ...chosen.map(qId)];
+      } else {
+        const topUp = shuffle(pool.filter(q => seenSet.has(qId(q)))).slice(0, need - fresh.length);
+        chosen = fresh.concat(topUp);
+        nextSeen = topUp.map(qId);
+      }
+      seen[lvl] = nextSeen;
+      chosen = shuffle(chosen);
+
       chosen.forEach(q => {
         const optIndices = shuffle(q.options.map((_, i) => i));
         result.push({
@@ -360,6 +517,7 @@
         });
       });
     });
+    saveSeen(seen);
     return result;
   }
 
@@ -536,9 +694,12 @@
     saveResult(results);
   }
 
-  // ---------- Save result to the local log folder (via server.py) ----------
-  // Silently does nothing if the page was opened without the server running
-  // (e.g. plain GitHub Pages) — the test itself still works either way.
+  // ---------- Save result: local log folder (server.py) and/or Google Sheet ----------
+  // Paste the Apps Script web-app URL (see cloud/apps-script.gs) between the
+  // quotes to also send every result to a Google Sheet from any network.
+  // Both destinations fail silently — the test itself works either way.
+  const RESULTS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyzIud9OZJDvR3PQtSawIHJ9tTyo4cpYPVyV-79FbGqNsDvOcBMkQpMb6nUm-f7stct/exec';
+
   function saveResult(results){
     const payload = {
       timestamp: new Date().toISOString(),
@@ -555,6 +716,16 @@
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     }).catch(() => {});
+
+    if (RESULTS_ENDPOINT) {
+      // text/plain + no-cors avoids a CORS preflight, which Apps Script can't answer.
+      fetch(RESULTS_ENDPOINT, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload),
+      }).catch(() => {});
+    }
   }
 
   // ---------- Reset silently if focus leaves the test ----------
@@ -569,6 +740,7 @@
   window.addEventListener('blur', handlePossibleCheat);
 
   // ---------- Init ----------
+  document.getElementById('startTotal').textContent = TOTAL;
   showScreen('start');
 })();
 </script>
