@@ -68,6 +68,17 @@ def _int_in(value, lo, hi):
     return value
 
 
+def clean_name(value):
+    if not isinstance(value, str):
+        return ""
+    return re.sub(r"[\x00-\x1f\x7f\s]+", " ", value).strip()[:60]
+
+
+def csv_safe(text):
+    """Stop Excel from running a name like '=HYPERLINK(...)' as a formula."""
+    return "'" + text if text[:1] in ("=", "+", "-", "@") else text
+
+
 def clean_payload(data):
     """Return a sanitized copy of the client's result or raise ValueError.
     The endpoint is reachable from the internet, so nothing from the
@@ -82,6 +93,7 @@ def clean_payload(data):
     if not isinstance(by_level, dict) or not isinstance(raw, dict):
         raise ValueError("bad breakdown")
     return {
+        "name": clean_name(data.get("name")),
         "level": level,
         "totalCorrect": _int_in(data.get("totalCorrect"), 0, 1000),
         "total": _int_in(data.get("total"), 1, 1000),
@@ -162,6 +174,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                         "Дата і час", "Рівень", "Правильних", "Всього", "Загальний %",
                         "A1 %", "A2 %", "B1 %", "B2 %",
                         "A1 (прав/всього)", "A2 (прав/всього)", "B1 (прав/всього)", "B2 (прав/всього)",
+                        "Ім'я",
                     ])
                 writer.writerow([
                     data["timestamp"],
@@ -171,6 +184,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                     data["overallPct"],
                     by_level["A1"], by_level["A2"], by_level["B1"], by_level["B2"],
                     raw_str("A1"), raw_str("A2"), raw_str("B1"), raw_str("B2"),
+                    csv_safe(data["name"]),
                 ])
 
         self._reply(200, b'{"ok": true}')

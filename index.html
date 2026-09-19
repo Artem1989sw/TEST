@@ -72,6 +72,30 @@
     cursor:pointer;
     margin-top:12px;
   }
+  .name-field{
+    display:block;
+    margin:0 0 22px;
+  }
+  .name-field span{
+    display:block;
+    font-size:13px;
+    color:var(--muted);
+    margin-bottom:6px;
+  }
+  .name-field input{
+    width:100%;
+    border:1.5px solid var(--border);
+    border-radius:10px;
+    padding:12px 14px;
+    font-size:15px;
+    font-family:inherit;
+    color:var(--text);
+    background:#fff;
+  }
+  .name-field input:focus{
+    outline:none;
+    border-color:var(--primary);
+  }
   .progress-wrap{
     display:flex;
     align-items:center;
@@ -206,6 +230,10 @@
     Запитання щоразу підбираються з великого банку в іншому порядку. Вони йдуть послідовно — від найпростіших до найскладніших. По завершенню ви отримаєте
     ваш орієнтовний рівень англійської та детальний відсотковий розподіл по кожному рівню.
   </p>
+  <label class="name-field">
+    <span>Ваше ім'я (необов'язково)</span>
+    <input type="text" id="nameInput" maxlength="60" autocomplete="name" placeholder="Наприклад, Олена">
+  </label>
   <button class="primary" id="startBtn">Почати тест</button>
 </div>
 
@@ -533,6 +561,7 @@
   const testScreen = document.getElementById('testScreen');
   const resultScreen = document.getElementById('resultScreen');
 
+  const nameInput = document.getElementById('nameInput');
   const startBtn = document.getElementById('startBtn');
   const nextBtn = document.getElementById('nextBtn');
   const restartBtn = document.getElementById('restartBtn');
@@ -703,6 +732,7 @@
   function saveResult(results){
     const payload = {
       timestamp: new Date().toISOString(),
+      name: nameInput.value.trim().slice(0, 60),
       level: results.level,
       totalCorrect: results.totalCorrect,
       total: TOTAL,
