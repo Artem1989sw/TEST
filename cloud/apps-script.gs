@@ -189,11 +189,16 @@ function doPost(e) {
       d.byLevel.A1, d.byLevel.A2, d.byLevel.B1, d.byLevel.B2,
       d.correct.A1, d.correct.A2, d.correct.B1, d.correct.B2,
     ]);
-    // The name is a link to the participant's tab; its text sits inside a
-    // string literal with quotes doubled, so it can never run as a formula.
-    const label = (d.name || ANONYMOUS_TAB).replace(/"/g, '""');
-    sheet.getRange(sheet.getLastRow(), NAME_COLUMN)
-      .setFormula('=HYPERLINK("#gid=' + tab.getSheetId() + '","' + label + '")');
+    // The name is plain text with a link to the participant's tab. A rich-text
+    // link (not a =HYPERLINK formula) works in any spreadsheet locale and can
+    // never be interpreted as a formula.
+    const label = d.name || ANONYMOUS_TAB;
+    const nameCell = sheet.getRange(sheet.getLastRow(), NAME_COLUMN);
+    nameCell.setNumberFormat('@');
+    nameCell.setValue(label);
+    nameCell.setRichTextValue(
+      SpreadsheetApp.newRichTextValue().setText(label).setLinkUrl('#gid=' + tab.getSheetId()).build()
+    );
 
     writeAttempt_(tab, d, stamp);
     lock.releaseLock();
